@@ -1,36 +1,11 @@
-"""
-LeetCode 2: Add Two Numbers  (brute force approach)
-
-Idea:
-    1. Walk each linked list and rebuild the integer it stands for. Digits are
-       stored in reverse order, so the node at index i carries place value 10**i.
-    2. Add the two integers with ordinary arithmetic.
-    3. Convert the sum back into a linked list, again in reverse digit order.
-
-Time complexity:  O(n + m)
-    n and m are the lengths of the two lists. Reading both lists is O(n + m),
-    and emitting the result costs O(max(n, m) + 1) nodes.
-Space complexity: O(max(n, m))
-    for the nodes of the answer list. The intermediate integers hold
-    O(n + m) digits as well.
-
-Caveat: this only works cleanly because Python integers are arbitrary
-precision. In a fixed width integer language a long list would overflow,
-which is exactly why the optimal digit by digit method is preferred.
-"""
-
-
 class ListNode:
-    """Single node of a singly linked list."""
-
     def __init__(self, val=0, next=None):
         self.val = val
         self.next = next
 
 
 def build_linked_list(values):
-    """Build a linked list from a Python list and return its head."""
-    dummy = ListNode()          # placeholder so we never special case the head
+    dummy = ListNode()       
     tail = dummy
     for value in values:
         tail.next = ListNode(value)
@@ -39,7 +14,6 @@ def build_linked_list(values):
 
 
 def linked_list_to_string(head):
-    """Render a linked list as '1 -> 2 -> 3' for printing."""
     parts = []
     node = head
     while node is not None:
@@ -49,13 +23,11 @@ def linked_list_to_string(head):
 
 
 def print_linked_list(head, label=""):
-    """Print a linked list, optionally prefixed with a label."""
     prefix = label + ": " if label else ""
     print(prefix + linked_list_to_string(head))
 
 
 def linked_list_to_int(head):
-    """Read the list back to front, so digit i contributes digit * 10**i."""
     number = 0
     place = 1
     node = head
@@ -67,10 +39,8 @@ def linked_list_to_int(head):
 
 
 def int_to_linked_list(number):
-    """Split an integer into digits, least significant digit first."""
     dummy = ListNode()
     tail = dummy
-    # A do while style loop so the value 0 still produces a single node.
     while True:
         tail.next = ListNode(number % 10)
         tail = tail.next
@@ -90,8 +60,8 @@ def main():
     test_cases = [
         # (first list, second list, expected result)
         ([2, 4, 3], [5, 6, 4], [7, 0, 8]),      # 342 + 465 = 807
-        ([9, 9, 9], [1], [0, 0, 0, 1]),         # 999 + 1 = 1000, carry adds a digit
-        ([1, 8], [0], [1, 8]),                  # 81 + 0 = 81, different lengths
+        ([9, 9, 9], [1], [0, 0, 0, 1]),         # 999 + 1 = 1000
+        ([1, 8], [0], [1, 8]),                  # 81 + 0 = 81
         ([0], [0], [0]),                        # both zero
     ]
 
