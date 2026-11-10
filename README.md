@@ -1,2 +1,2 @@
-# LeetCode-problem-solving-in-python---JS
+# LeetCode-problem-solving-in-Python-&-JS
 Solving problems of LeetCode
